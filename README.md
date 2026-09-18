@@ -67,6 +67,16 @@ Filenames should contain the filing year, for example:
 2024-10k.html
 2025-10k.html
 ```
+Due to the large nature of the files, they need to be put in individual sub-directories such as:
+
+
+```text
+data/filings/2021
+data/filings/2022
+data/filings/2023
+data/filings/2024
+data/filings/2025
+```
 
 ## Build the index
 
