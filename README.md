@@ -87,8 +87,17 @@ python build_index.py
 This creates:
 
 ```text
-indexes/faiss.index
-indexes/metadata.json
+indexes/faiss_2021.index
+indexes/faiss_2022.index
+indexes/faiss_2023.index
+indexes/faiss_2024.index
+indexes/faiss_2025.index
+indexes/metadata_2021.json
+indexes/metadata_2022.json
+indexes/metadata_2023.json
+indexes/metadata_2024.json
+indexes/metadata_2025.json
+
 ```
 
 ## Query the system
