@@ -21,7 +21,7 @@ INDEX_DIR.mkdir(parents=True, exist_ok=True)
 
 # Scan for subdirectories representing each year
 year_dirs = sorted([d for d in FILINGS_DIR.iterdir() if d.is_dir() and d.name.isdigit()])
-print(f"🔍 Found {len(year_dirs)} year directories: {[d.name for d in year_dirs]}")
+print(f" Found {len(year_dirs)} year directories: {[d.name for d in year_dirs]}")
 
 for y_dir in year_dirs:
     year = int(y_dir.name)
@@ -30,7 +30,7 @@ for y_dir in year_dirs:
     if not filing_paths:
         continue
         
-    print(f"\n📂 Building Isolated Index Partition for Year: {year}")
+    print(f"\n Building Isolated Index Partition for Year: {year}")
     year_chunks = []
     
     for path in filing_paths:
@@ -49,10 +49,10 @@ for y_dir in year_dirs:
             year_chunks.extend(chunks)
 
     if not year_chunks:
-        print(f"⚠️ No chunks generated for year {year}. Skipping.")
+        print(f" No chunks generated for year {year}. Skipping.")
         continue
 
-    print(f"🧠 Embedding {len(year_chunks)} chunks for {year} partition...")
+    print(f" Embedding {len(year_chunks)} chunks for {year} partition...")
     vectors = np.asarray(embed_texts([c["text"] for c in year_chunks]), dtype="float32")
     faiss.normalize_L2(vectors)
 
@@ -64,4 +64,4 @@ for y_dir in year_dirs:
     with open(INDEX_DIR / f"metadata_{year}.json", "w", encoding="utf-8") as f:
         json.dump(year_chunks, f, indent=2)
 
-print("\n✅ Success! Multi-index partitioning successfully written to disk.")
+print("\n Success! Multi-index partitioning successfully written to disk.")

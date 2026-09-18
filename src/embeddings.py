@@ -28,15 +28,15 @@ def embed_texts(texts, model="text-embedding-3-small", batch_size=40):
             except openai.RateLimitError as e:
                 retries -= 1
                 if retries == 0:
-                    print(f"\n❌ Permanent Rate Limit Failure on batch index {i}.")
+                    print(f"\n Permanent Rate Limit Failure on batch index {i}.")
                     raise e
                 
-                print(f"\n⚠️ Rate limit hit. Retrying batch in {delay:.2f}s... ({retries} retries left)")
+                print(f"\n Rate limit hit. Retrying batch in {delay:.2f}s... ({retries} retries left)")
                 time.sleep(delay)
                 delay *= 2.0  # Double the wait time for the next attempt
                 
             except Exception as e:
-                print(f"\n❌ Unexpected error occurred processing batch: {e}")
+                print(f"\n Unexpected error occurred processing batch: {e}")
                 raise e
                 
         

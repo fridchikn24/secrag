@@ -4,12 +4,12 @@ A local Retrieval-Augmented Generation system for analyzing five years of SEC 10
 
 ## Architecture
 
-1. Parse local PDF/HTML filings
+1. Parse local HTML filings
 2. Extract 10-K sections
 3. Create overlapping chunks with year/section/source metadata
 4. Generate OpenAI embeddings
 5. Build a FAISS vector index
-6. Combine semantic and BM25 lexical retrieval
+6. Utilize retrieval
 7. Generate grounded answers with source IDs
 8. Evaluate retrieval and generation quality
 
@@ -34,7 +34,7 @@ sec_rag/
 ├── query.py
 ├── run_evaluation.py
 ├── requirements.txt
-├── .env.example
+├── .env
 └── README.md
 ```
 
@@ -50,7 +50,7 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-Copy `.env.example` to `.env` and add your OpenAI API key.
+add  your OpenAI key to .env
 
 Put the five local filings into:
 
@@ -61,11 +61,21 @@ data/filings/
 Filenames should contain the filing year, for example:
 
 ```text
-2021_10k.pdf
-2022_10k.pdf
-2023_10k.pdf
-2024_10k.pdf
-2025_10k.pdf
+2021-10k.html
+2022-10k.html
+2023-10k.html
+2024-10k.html
+2025-10k.html
+```
+Due to the large nature of the files, they need to be put in individual sub-directories such as:
+
+
+```text
+data/filings/2021
+data/filings/2022
+data/filings/2023
+data/filings/2024
+data/filings/2025
 ```
 
 ## Build the index
@@ -77,8 +87,17 @@ python build_index.py
 This creates:
 
 ```text
-indexes/faiss.index
-indexes/metadata.json
+indexes/faiss_2021.index
+indexes/faiss_2022.index
+indexes/faiss_2023.index
+indexes/faiss_2024.index
+indexes/faiss_2025.index
+indexes/metadata_2021.json
+indexes/metadata_2022.json
+indexes/metadata_2023.json
+indexes/metadata_2024.json
+indexes/metadata_2025.json
+
 ```
 
 ## Query the system
@@ -120,5 +139,3 @@ For a serious benchmark, use 50–100 questions covering:
 - multi-year comparisons
 - numerical questions
 - unanswerable questions
-
-For financial RAG, also add a separate numerical-accuracy benchmark where each question has an expected value and unit.

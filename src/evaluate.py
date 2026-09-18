@@ -64,7 +64,6 @@ def run_evaluation(rag, questions):
             
         relevant_years = [int(y) for y in raw_targets if y is not None]
 
-        # FIXED: Explicitly maps fallback target matching loops if dataset arrays are empty
         if not relevant_years:
             q_lower = item["question"].lower()
             if "2021" in q_lower:

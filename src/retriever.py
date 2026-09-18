@@ -44,7 +44,7 @@ def retrieve(query_text: str, k: int = 5):
     
     retrieved_sources = []
     
-    # 🔴 BALANCED ROUTING ROUTE:
+    #  BALANCED ROUTING ROUTE:
     if is_comparative and target_year == 2025:
         # Pull evenly from the two most recent distinct database files
         retrieved_sources.extend(retrieve_from_partition(query_vector, 2024, k=3))

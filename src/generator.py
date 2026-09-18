@@ -14,7 +14,6 @@ Rules:
 def generate_answer(question, contexts, model="gpt-5.6"):
     client = OpenAI()
 
-    # FIXED: Handled title/section variations gracefully during text grouping
     evidence = "\n\n".join(
         f"SOURCE_ID: {c.get('chunk_id')}\n"
         f"YEAR: {c.get('year')}\n"
@@ -31,8 +30,7 @@ Evidence:
 
 Answer the question using only the evidence above. Include source IDs for the claims you make."""
 
-    # FIXED: Parametrizing kwargs dynamically to prevent 'temperature' 
-    # value exceptions from crashing modern reasoning loops.
+    
     kwargs = {
         "model": model,
         "messages": [

@@ -12,13 +12,11 @@ from pathlib import Path
 import re
 
 def parse_html(path: str) -> str:
-    # 1. Read the raw file stream safely
     html_content = Path(path).read_text(encoding="utf-8", errors="ignore")
     
     # Suppress verbose parsing alerts from SEC structural layouts
     warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
     
-    # 2. Extract texts directly from modern SEC Inline XBRL nodes if present
     # Check if the file is packed with custom 'ix:' markup tags
     if "ix:" in html_content:
         # Match any text packed between open/close tags or attributes
@@ -56,7 +54,6 @@ def parse_html(path: str) -> str:
                     
         combined_text = "\n\n".join(parsed_blocks)
 
-    # 3. Clean up raw URL references and formatting artifacts from processing
     words = combined_text.split()
     sanitized_words = []
     
